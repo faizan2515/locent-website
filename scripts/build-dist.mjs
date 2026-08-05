@@ -6,7 +6,7 @@
  * publish directory separate from the repo root means the Pages artifact never
  * carries node_modules, sources or CI scripts.
  */
-import { cp, mkdir, rm, writeFile, access } from 'node:fs/promises';
+import { cp, mkdir, rm, writeFile, access, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -50,6 +50,19 @@ for (const file of FILES) {
 for (const dir of DIRS) {
   await cp(join(root, dir), join(dist, dir), { recursive: true });
 }
+
+/*
+ * Search Console ownership tokens (google<hash>.html). Picked up by pattern
+ * rather than listed, because Google issues a new filename whenever a property
+ * is re-verified and the site is published from dist/ — a token left behind in
+ * the repo root would 404 and silently un-verify the domain, which in turn
+ * blocks the OAuth consent screen's authorised domain.
+ */
+const tokens = (await readdir(root)).filter((f) => /^google[0-9a-f]+\.html$/.test(f));
+for (const token of tokens) {
+  await cp(join(root, token), join(dist, token));
+}
+if (tokens.length) console.log(`Included ${tokens.length} Search Console token(s)`);
 
 /* Without this, Pages runs the output through Jekyll, which drops paths that
    start with an underscore and slows every deploy down for no benefit. */

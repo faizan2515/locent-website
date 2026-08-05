@@ -10,7 +10,7 @@
  * Usage: node scripts/verify-site.mjs [dist-dir]
  */
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname, normalize } from 'node:path';
 import { chromium } from 'playwright';
@@ -157,6 +157,23 @@ for (const name of PAGES) {
     }
   }
   await page.setViewportSize({ width: 1280, height: 900 });
+}
+
+/*
+ * Search Console tokens must keep serving after verification succeeds — Google
+ * re-checks them, and losing one un-verifies the domain, which would in turn
+ * invalidate it as an authorised domain on the OAuth consent screen. Assert
+ * every token in the repo root is actually reachable in the build.
+ */
+for (const token of (await readdir(root)).filter((f) => /^google[0-9a-f]+\.html$/.test(f))) {
+  const response = await page.request.get(origin + token);
+  if (!response.ok()) {
+    fail(`${token}: Search Console token not served from the build (${response.status()})`);
+    continue;
+  }
+  const served = (await response.text()).trim();
+  const onDisk = (await readFile(join(root, token), 'utf8')).trim();
+  if (served !== onDisk) fail(`${token}: served content does not match the repo root copy`);
 }
 
 /* The stylesheet is generated, so verify a token-driven rule actually applied —
