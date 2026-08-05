@@ -1,0 +1,188 @@
+@import 'tailwindcss';
+
+@source '../*.html';
+
+/*
+ * Spline Sans, self-hosted. Declared under the same family name the app's
+ * global.css uses, so `--font-display` reads identically in both places.
+ *
+ * One variable file per subset spans weights 300-700, which covers every weight
+ * on the site (400/500/600/700) in a single request. Unicode ranges are the
+ * upstream ones from @fontsource-variable/spline-sans; the browser fetches
+ * latin-ext only if the page actually uses a character from it.
+ */
+@font-face {
+  font-family: 'Spline Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('../fonts/spline-sans-latin.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Spline Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('../fonts/spline-sans-latin-ext.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/*
+ * Locent design tokens — mirrored from the app's `src/global.css`.
+ *
+ * Same scaling rule as the app: every color is a `--color-*` variable defined
+ * identically in light and dark, so markup uses semantic classes like
+ * `bg-background` / `text-foreground` and adapts automatically — no `dark:`
+ * prefixes scattered through the pages. Dark mode simply re-points the
+ * variables under `[data-theme='dark']`.
+ *
+ * Naming: `--color-background` -> `bg-background` / `text-background`.
+ */
+@theme {
+  --color-background: #ffffff;
+  --color-surface: #f0f0f3; /* cards, inputs (scaffold backgroundElement) */
+  --color-surface-selected: #e0e1e6;
+  --color-foreground: #11181c;
+  --color-muted: #60646c; /* secondary text */
+  --color-border: #e2e4e9;
+  --color-primary: #208aef; /* brand blue (splash color) */
+  --color-on-primary: #ffffff;
+  --color-income: #12805c; /* green — income amounts */
+  --color-expense: #c62a2a; /* red — expense amounts */
+  --color-danger: #c62a2a;
+  --color-warning: #b45309;
+
+  /* Brand gradient from the app icon (assets/icon/icon.svg). */
+  --color-brand-from: #2f6df6;
+  --color-brand-to: #1b4fd0;
+  --color-brand-accent: #8fc0ff;
+
+  --font-display:
+    'Spline Sans', Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+}
+
+[data-theme='dark'] {
+  --color-background: #000000;
+  --color-surface: #16181c;
+  --color-surface-selected: #23262b;
+  --color-foreground: #ecedee;
+  --color-muted: #9ba1a6;
+  --color-border: #26292e;
+  --color-primary: #3c9bff;
+  --color-on-primary: #08111c;
+  --color-income: #3ddc97;
+  --color-expense: #ff6b6b;
+  --color-danger: #ff6b6b;
+  --color-warning: #f5b544;
+}
+
+/* Utilities generated from the variables above resolve at use time, so the
+   dark overrides need to reach them too — re-declare inside the cascade. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-display);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  /* Anchored headings in the legal pages must clear the sticky header. */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+
+  /* The mobile toggle shows the theme it will switch TO. Driven by the
+     data-theme attribute the pre-paint script sets, so the correct icon is
+     there on first paint rather than being corrected by script afterwards. */
+  [data-theme='light'] [data-theme-icon='sun'],
+  [data-theme='dark'] [data-theme-icon='moon'] {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Prose block for the privacy / terms pages — the app has no equivalent, so
+     it is defined once here rather than repeated across sections. */
+  .legal {
+    --legal-gap: 1rem;
+  }
+
+  .legal h2 {
+    margin-top: 2.75rem;
+    margin-bottom: 0.875rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground);
+  }
+
+  .legal h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .legal p {
+    margin-bottom: var(--legal-gap);
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+
+  .legal ul {
+    margin-bottom: var(--legal-gap);
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+  }
+
+  .legal li {
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+
+  .legal li::marker {
+    color: var(--color-primary);
+  }
+
+  .legal strong {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .legal a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal a:hover {
+    opacity: 0.8;
+  }
+
+  .legal code {
+    border-radius: 0.375rem;
+    background-color: var(--color-surface-selected);
+    padding: 0.125rem 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    color: var(--color-foreground);
+  }
+}

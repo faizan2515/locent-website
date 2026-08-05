@@ -1,0 +1,10 @@
+node_modules/
+dist/
+
+# Built by `npm run build`; produced in CI and published from dist/.
+assets/css/site.css
+
+# Copied from @fontsource-variable/spline-sans by `npm run dist`.
+assets/fonts/
+
+.DS_Store

@@ -1,0 +1,67 @@
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A superseded run has nothing worth finishing, but let an in-flight deploy of
+# an earlier commit complete rather than leaving Pages half-updated.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build and verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Compiles src/input.css and assembles dist/. The stylesheet is not
+      # committed, so this is the only place it is produced.
+      - name: Build site
+        run: npm run dist
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify build
+        run: npm run verify
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    # Pull requests build and verify but must not publish. The ref check also
+    # stops a workflow_dispatch from a feature branch publishing that branch.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    # Job-level permissions replace the top-level block rather than merging
+    # with it, so contents: read has to be repeated here.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

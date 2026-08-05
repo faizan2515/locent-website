@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faizan2515.github.io/locent-website/sitemap.xml

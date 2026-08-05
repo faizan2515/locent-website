@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Locent</title>
+    <meta
+      name="description"
+      content="Locent's privacy policy: your financial data stays on your device, optional encrypted backups go to your own Google Drive, and we collect no analytics or telemetry."
+    />
+    <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1b4fd0" />
+
+    <link rel="canonical" href="https://faizan2515.github.io/locent-website/privacy.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Locent" />
+    <meta property="og:url" content="https://faizan2515.github.io/locent-website/privacy.html" />
+    <meta property="og:title" content="Privacy Policy — Locent" />
+    <meta property="og:description" content="Your financial data stays on your device. Optional encrypted backups go to your own Google Drive, and we collect no analytics or telemetry." />
+    <meta property="og:image" content="https://faizan2515.github.io/locent-website/assets/img/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Self-hosted, so the page makes no third-party request. Preloaded
+         because the stylesheet that declares it is discovered a step later. -->
+    <link
+      rel="preload"
+      href="./assets/fonts/spline-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./assets/css/site.css" />
+
+    <script>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('locent-theme');
+        } catch (e) {
+          /* storage blocked — fall back to system */
+        }
+        var pref = stored === 'light' || stored === 'dark' ? stored : 'system';
+        var dark =
+          pref === 'dark' ||
+          (pref === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      })();
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+      >Skip to content</a
+    >
+
+    <header
+      class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md"
+    >
+      <div class="mx-auto flex h-16 max-w-3xl items-center gap-2 px-4 sm:gap-4 sm:px-5">
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-8 w-8 rounded-lg" />
+          <span class="text-lg font-semibold tracking-tight">Locent</span>
+        </a>
+
+        <nav class="ml-auto flex items-center gap-1 text-sm">
+          <a
+            href="./index.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Home</a
+          >
+          <a
+            href="./terms.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Terms</a
+          >
+        </nav>
+
+        <!-- Below sm the three-way control does not fit beside the nav links at
+             320px, so small screens get a single light/dark toggle instead. It
+             shows the theme it will switch to. -->
+        <button
+          type="button"
+          id="theme-toggle"
+          aria-label="Toggle light and dark theme"
+          class="shrink-0 rounded-lg bg-surface p-2 text-muted transition-colors sm:hidden"
+        >
+          <svg data-theme-icon="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg data-theme-icon="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <div
+          id="theme-switch"
+          role="group"
+          aria-label="Color theme"
+          class="hidden shrink-0 sm:flex items-center gap-0.5 rounded-lg bg-surface p-0.5"
+        >
+          <button
+            type="button"
+            data-theme-value="system"
+            aria-label="Match system theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8m-4-4v4" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="light"
+            aria-label="Light theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="dark"
+            aria-label="Dark theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-14">
+      <h1 class="text-4xl font-bold tracking-tight">Privacy Policy</h1>
+      <p class="mt-4 text-sm text-muted">Last updated: 20 July 2026</p>
+
+      <div class="legal mt-10">
+        <p>
+          Locent ("the app", "we", "us") is a personal expense tracker for Android,
+          published under the Name Locent. This policy explains what data the app handles
+          and — just as importantly — what it does not do with your data.
+        </p>
+        <p>
+          Locent is built to be private by design. Your financial data lives on your own
+          device and, if you choose, in your own private Google Drive storage. We do not
+          run a server, we have no user accounts, and we never receive, see, or store your
+          financial information.
+        </p>
+
+        <h2 id="summary">1. Summary (the short version)</h2>
+        <ul>
+          <li>
+            All your data stays on your device in a local database. There is no Locent
+            server.
+          </li>
+          <li>
+            We collect no analytics and no telemetry. The app contains no tracking or
+            advertising SDKs.
+          </li>
+          <li>
+            Backups are optional and go only to <strong>your</strong> Google Drive, in a
+            hidden app-private folder that only Locent can access. Backups are encrypted on
+            your device before they leave it.
+          </li>
+          <li>
+            We (the developer) never have access to your accounts, transactions,
+            categories, budgets, goals, or backups.
+          </li>
+          <li>
+            The only network connections the app makes are: signing in to your own Google
+            account, reading/writing your own backups in your own Google Drive, and
+            checking for app updates.
+          </li>
+        </ul>
+
+        <h2 id="what-we-store">2. What data Locent stores, and where</h2>
+        <p>
+          You create financial records in the app — for example accounts, transactions,
+          categories, recurring rules, budgets, and savings goals. This data is stored only
+          in a local database on your device. It is not transmitted to us and it is not
+          sent to any third party, except as part of a backup you explicitly enable (see
+          <a href="#google-drive">Section 4</a>).
+        </p>
+        <p>
+          We, the developer, have no ability to read this data. It never reaches any server
+          we control, because no such server exists.
+        </p>
+
+        <h2 id="data-we-collect">3. Data we collect: none</h2>
+        <p>
+          Locent does not collect, transmit, sell, or share any personal or financial data
+          with the developer or with any third-party service for our benefit.
+        </p>
+        <p>Specifically, the app does not:</p>
+        <ul>
+          <li>
+            include any analytics, advertising, crash-reporting, or telemetry SDK;
+          </li>
+          <li>track your activity within the app or across other apps;</li>
+          <li>
+            require an account, email, phone number, or login with us (we have none);
+          </li>
+          <li>
+            access your contacts, photos, precise location, microphone, or camera.
+          </li>
+        </ul>
+
+        <h2 id="google-drive">4. Optional Google Drive backup</h2>
+        <p>
+          Locent offers an optional backup feature so you can restore your data on a new
+          device. You control whether this is ever used.
+        </p>
+        <p>If you choose to connect Google Drive:</p>
+        <ul>
+          <li>
+            <strong>Sign-in:</strong> You sign in with your own Google account. Locent
+            requests only the <code>drive.appdata</code> scope. This scope grants access to
+            a hidden, app-specific folder in your Google Drive (the "application data
+            folder") — it does not give the app access to any of your other Google Drive
+            files, and no other app can read Locent's folder.
+          </li>
+          <li>
+            <strong>Encryption:</strong> Your data is packaged and encrypted on your device
+            before it is uploaded. Only encrypted content leaves your phone.
+          </li>
+          <li>
+            <strong>Destination:</strong> The encrypted backup is uploaded to your private
+            Google Drive app-data folder. It is stored in your Google account, under your
+            control. We never receive it and cannot read it.
+          </li>
+          <li>
+            <strong>Restore:</strong> When you restore, Locent downloads your encrypted
+            backup from your Google Drive and decrypts it on your device.
+          </li>
+          <li>
+            <strong>Deletion:</strong> You can delete backups from within the app, and you
+            can revoke Locent's access to your Google account at any time via your
+            <a href="https://myaccount.google.com/permissions" rel="noopener"
+              >Google Account settings</a
+            >.
+          </li>
+        </ul>
+        <p>
+          Your use of Google Drive is also governed by
+          <a href="https://policies.google.com/privacy" rel="noopener"
+            >Google's Privacy Policy</a
+          >.
+        </p>
+        <p>
+          Locent's use of information received from Google APIs adheres to the
+          <a
+            href="https://developers.google.com/terms/api-services-user-data-policy"
+            rel="noopener"
+            >Google API Services User Data Policy</a
+          >, including its Limited Use requirements.
+        </p>
+
+        <h2 id="notifications">5. Notifications</h2>
+        <p>
+          If you enable reminders (for example, for recurring transactions), Locent uses
+          your device's local notification system to alert you. These notifications are
+          generated on your device. No notification content is sent to us or to any third
+          party, and we do not operate a push notification server.
+        </p>
+        <p>
+          You can grant or deny the notification permission, and change it at any time in
+          your device's Android settings.
+        </p>
+
+        <h2 id="app-updates">6. App updates</h2>
+        <p>
+          Locent checks for over-the-air (OTA) app updates using update service. This check
+          sends only technical build and runtime information (such as the app's version and
+          runtime identifier) needed to determine whether a compatible update is available.
+          It never includes any of your financial data or personal information. This is the
+          only automatic network request the app makes that is not a backup or sign-in
+          action you initiated.
+        </p>
+
+        <h2 id="data-sharing">7. Data sharing</h2>
+        <p>
+          We do not share your data with anyone, because we never receive it in the first
+          place.
+        </p>
+        <p>
+          The only third party that ever holds your data is you, via your own Google
+          account, when you choose to enable backups. In that case the data lives in your
+          Google Drive under your control, and Google acts as your storage provider — not
+          ours.
+        </p>
+
+        <h2 id="retention">8. Data retention and deletion</h2>
+        <ul>
+          <li>
+            <strong>On your device:</strong> Your data remains on your device until you
+            delete individual records, clear the app's data, or uninstall the app.
+            Uninstalling the app removes the local database from your device.
+          </li>
+          <li>
+            <strong>In your Google Drive:</strong> Any backups you created remain in your
+            Google Drive app-data folder until you delete them (from within Locent or via
+            Google Drive) or revoke Locent's access. Because these files live in your
+            account, you control their retention.
+          </li>
+        </ul>
+        <p>
+          Since we hold none of your data, there is nothing for you to request from us and
+          nothing for us to delete on our end.
+        </p>
+
+        <h2 id="children">9. Children's privacy</h2>
+        <p>
+          Locent is not directed to children under the age of 13 (or the equivalent minimum
+          age in your jurisdiction). We do not knowingly collect any data from children —
+          indeed, we do not knowingly collect data from anyone.
+        </p>
+
+        <h2 id="security">10. Security</h2>
+        <p>
+          Backups are encrypted on your device before upload using AES-256, and the
+          encryption key is derived on-device. Your local database is stored in your app's
+          private storage area, which Android isolates from other apps. Your Google Drive
+          backups are further protected by your Google account's own security.
+        </p>
+        <p>
+          No method of electronic storage is perfectly secure, but because your data stays
+          under your control and never reaches us, the attack surface is limited to your
+          own device and your own Google account.
+        </p>
+
+        <h2 id="changes">11. Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time — for example, if the app gains new
+          features. When we do, we will update the "Last updated" date above and post the
+          revised policy at the same location. Material changes will be reflected in an app
+          update.
+        </p>
+
+        <h2 id="contact">12. Contact</h2>
+        <p>
+          If you have any questions about this privacy policy or Locent's handling of data,
+          contact:
+        </p>
+        <p>
+          Email:
+          <a href="mailto:faizan.r.1350@gmail.com">faizan.r.1350@gmail.com</a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="border-t border-border">
+      <div
+        class="mx-auto flex max-w-3xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-7 w-7 rounded-lg" />
+          <span class="text-sm text-muted">
+            © <span id="year">2026</span> Locent. All rights reserved.
+          </span>
+        </div>
+        <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <a href="./index.html" class="text-muted transition-colors hover:text-foreground"
+            >Home</a
+          >
+          <a
+            href="./privacy.html"
+            class="text-muted transition-colors hover:text-foreground"
+            >Privacy Policy</a
+          >
+          <a href="./terms.html" class="text-muted transition-colors hover:text-foreground"
+            >Terms of Service</a
+          >
+          <a
+            href="mailto:faizan.r.1350@gmail.com"
+            class="text-muted transition-colors hover:text-foreground"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./assets/js/theme.js"></script>
+  </body>
+</html>

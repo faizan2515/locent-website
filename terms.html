@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terms of Service — Locent</title>
+    <meta
+      name="description"
+      content="The terms governing your use of Locent, a private, offline-first expense tracker for Android."
+    />
+    <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1b4fd0" />
+
+    <link rel="canonical" href="https://faizan2515.github.io/locent-website/terms.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Locent" />
+    <meta property="og:url" content="https://faizan2515.github.io/locent-website/terms.html" />
+    <meta property="og:title" content="Terms of Service — Locent" />
+    <meta property="og:description" content="The terms governing your use of Locent, a private, offline-first expense tracker for Android." />
+    <meta property="og:image" content="https://faizan2515.github.io/locent-website/assets/img/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Self-hosted, so the page makes no third-party request. Preloaded
+         because the stylesheet that declares it is discovered a step later. -->
+    <link
+      rel="preload"
+      href="./assets/fonts/spline-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./assets/css/site.css" />
+
+    <script>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('locent-theme');
+        } catch (e) {
+          /* storage blocked — fall back to system */
+        }
+        var pref = stored === 'light' || stored === 'dark' ? stored : 'system';
+        var dark =
+          pref === 'dark' ||
+          (pref === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      })();
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+      >Skip to content</a
+    >
+
+    <header
+      class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md"
+    >
+      <div class="mx-auto flex h-16 max-w-3xl items-center gap-2 px-4 sm:gap-4 sm:px-5">
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-8 w-8 rounded-lg" />
+          <span class="text-lg font-semibold tracking-tight">Locent</span>
+        </a>
+
+        <nav class="ml-auto flex items-center gap-1 text-sm">
+          <a
+            href="./index.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Home</a
+          >
+          <a
+            href="./privacy.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Privacy</a
+          >
+        </nav>
+
+        <!-- Below sm the three-way control does not fit beside the nav links at
+             320px, so small screens get a single light/dark toggle instead. It
+             shows the theme it will switch to. -->
+        <button
+          type="button"
+          id="theme-toggle"
+          aria-label="Toggle light and dark theme"
+          class="shrink-0 rounded-lg bg-surface p-2 text-muted transition-colors sm:hidden"
+        >
+          <svg data-theme-icon="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg data-theme-icon="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <div
+          id="theme-switch"
+          role="group"
+          aria-label="Color theme"
+          class="hidden shrink-0 sm:flex items-center gap-0.5 rounded-lg bg-surface p-0.5"
+        >
+          <button
+            type="button"
+            data-theme-value="system"
+            aria-label="Match system theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8m-4-4v4" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="light"
+            aria-label="Light theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="dark"
+            aria-label="Dark theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-14">
+      <h1 class="text-4xl font-bold tracking-tight">Terms of Service</h1>
+      <p class="mt-4 text-sm text-muted">Last updated: 5 August 2026</p>
+
+      <div class="legal mt-10">
+        <p>
+          These Terms of Service ("Terms") govern your use of Locent ("the app", "we",
+          "us"), a personal expense tracker for Android. By installing or using the app,
+          you agree to these Terms. If you do not agree, please do not use the app.
+        </p>
+        <p>
+          Locent is an offline-first application. We do not operate a server, we do not
+          host your data, and we have no user accounts — so these Terms are shorter and
+          narrower than those of a typical online service.
+        </p>
+
+        <h2 id="license">1. Your licence to use Locent</h2>
+        <p>
+          We grant you a personal, non-exclusive, non-transferable, revocable licence to
+          install and use Locent on devices you own or control, for your own personal,
+          non-commercial use.
+        </p>
+        <p>You agree not to:</p>
+        <ul>
+          <li>
+            reverse engineer, decompile or disassemble the app, except where that
+            restriction is prohibited by applicable law;
+          </li>
+          <li>
+            redistribute, resell, sublicense or rent the app, or publish it under your own
+            name;
+          </li>
+          <li>
+            use the app to break any law, or to interfere with the Google services the
+            backup feature relies on.
+          </li>
+        </ul>
+
+        <h2 id="your-data">2. Your data is yours, and it is your responsibility</h2>
+        <p>
+          Everything you enter into Locent — accounts, transactions, categories, recurring
+          rules, budgets and goals — belongs to you and stays on your device. We claim no
+          ownership over it and, as described in our
+          <a href="./privacy.html">Privacy Policy</a>, we never receive it.
+        </p>
+        <p>
+          Because we hold nothing, we cannot recover anything on your behalf. You are
+          responsible for:
+        </p>
+        <ul>
+          <li>
+            the accuracy of the records you enter, and any decision you make based on them;
+          </li>
+          <li>
+            keeping your device and your Google account secure, including any device
+            passcode or biometric lock;
+          </li>
+          <li>
+            safely storing your backup passphrase and recovery key (see
+            <a href="#backups">Section 3</a>).
+          </li>
+        </ul>
+
+        <h2 id="backups">3. Backups, restores and the passphrase</h2>
+        <p>
+          The backup feature is optional and off until you enable it. Two things about it
+          are important enough that we state them plainly rather than burying them:
+        </p>
+        <ul>
+          <li>
+            <strong>It is a backup, not a sync.</strong> You can restore a backup onto a new
+            device and continue there. Using two devices at the same time is not supported:
+            the most recent backup will overwrite the other on restore.
+          </li>
+          <li>
+            <strong>If you lose your passphrase, your backup is unrecoverable.</strong>
+            Backups are encrypted on your device with a key derived from your passphrase.
+            We do not hold that passphrase, there is no reset link, and no one — including
+            us — can decrypt your backup without it. The app offers a recovery key when you
+            set up backups; keep it somewhere safe.
+          </li>
+        </ul>
+        <p>
+          We make no guarantee that a backup will complete at any particular time.
+          Scheduled backups depend on your device's operating system, network and battery
+          conditions, and Android may defer background work. A backup is a safety net, not
+          a contractual commitment.
+        </p>
+
+        <h2 id="google">4. Google account and third-party services</h2>
+        <p>
+          If you enable Google Drive backup, you connect your own Google account and the
+          app stores encrypted files in the hidden app-data folder of your Drive. Your use
+          of Google's services is governed by
+          <a href="https://policies.google.com/terms" rel="noopener"
+            >Google's Terms of Service</a
+          >
+          and
+          <a href="https://policies.google.com/privacy" rel="noopener"
+            >Google's Privacy Policy</a
+          >, which are between you and Google.
+        </p>
+        <p>
+          We are not responsible for the availability, pricing, storage quotas or behaviour
+          of Google Drive, and we cannot restore backups that Google loses, deletes or makes
+          unavailable. You may revoke Locent's access to your Google account at any time
+          from your
+          <a href="https://myaccount.google.com/permissions" rel="noopener"
+            >Google Account permissions</a
+          >; doing so stops future backups and restores.
+        </p>
+
+        <h2 id="not-advice">5. Locent is not financial advice</h2>
+        <p>
+          Locent is a record-keeping tool. It does not provide financial, investment,
+          accounting, tax or legal advice, and nothing it displays — including budgets,
+          reports, totals or projections — should be treated as such. Figures shown in the
+          app are derived from the data you enter and are only as accurate as that data.
+          For advice about your finances, consult a qualified professional.
+        </p>
+
+        <h2 id="availability">6. Availability, updates and changes to the app</h2>
+        <p>
+          Locent is provided free of charge, and we may add, change or remove features,
+          release updates, or stop distributing the app at any time. Updates may be
+          delivered through the app store or as over-the-air updates. We will not
+          deliberately release an update designed to make your existing data unreadable;
+          backups made on an older version are migrated forward on restore.
+        </p>
+
+        <h2 id="ip">7. Intellectual property</h2>
+        <p>
+          The app, its name, its logo and its source code (other than the content you
+          create) remain the property of the developer or its licensors, and are protected
+          by copyright and other laws. These Terms do not transfer any of those rights to
+          you. Third-party open-source components included in the app remain subject to
+          their own licences.
+        </p>
+
+        <h2 id="warranty">8. Disclaimer of warranties</h2>
+        <p>
+          Locent is provided <strong>"as is" and "as available"</strong>, without warranty
+          of any kind, whether express or implied, including but not limited to implied
+          warranties of merchantability, fitness for a particular purpose, accuracy and
+          non-infringement. We do not warrant that the app will be uninterrupted,
+          error-free, or that any defect will be corrected, nor that backups or restores
+          will always succeed.
+        </p>
+        <p>
+          Some jurisdictions do not allow the exclusion of certain warranties, so parts of
+          this section may not apply to you.
+        </p>
+
+        <h2 id="liability">9. Limitation of liability</h2>
+        <p>
+          To the maximum extent permitted by applicable law, the developer will not be
+          liable for any indirect, incidental, special, consequential or exemplary damages,
+          or for any loss of data, loss of profits, or loss of goodwill, arising out of or
+          in connection with your use of — or inability to use — the app. This includes
+          data lost through device failure, uninstallation, a forgotten backup passphrase,
+          a failed or unavailable backup, or changes to third-party services.
+        </p>
+        <p>
+          Because Locent is provided free of charge, our total aggregate liability to you
+          for all claims relating to the app is limited to the amount you paid for it,
+          which is zero. Nothing in these Terms excludes liability that cannot lawfully be
+          excluded.
+        </p>
+
+        <h2 id="termination">10. Termination</h2>
+        <p>
+          You may stop using Locent at any time by uninstalling it, which removes the local
+          database from your device. Any backups you created remain in your own Google
+          Drive until you delete them. This licence terminates automatically if you breach
+          these Terms; the sections on intellectual property, warranties and liability
+          survive termination.
+        </p>
+
+        <h2 id="children-terms">11. Age requirement</h2>
+        <p>
+          Locent is not directed to children under the age of 13, or the equivalent minimum
+          age in your jurisdiction. By using the app you confirm that you meet that
+          requirement.
+        </p>
+
+        <h2 id="changes-terms">12. Changes to these Terms</h2>
+        <p>
+          We may update these Terms from time to time — for example, when the app gains new
+          features. When we do, we will update the "Last updated" date above and post the
+          revised Terms at this address. Continuing to use the app after a change means you
+          accept the revised Terms.
+        </p>
+
+        <h2 id="governing-law">13. Governing law</h2>
+        <p>
+          These Terms are governed by the laws of the United Arab Emirates, without regard
+          to its conflict-of-laws rules, and the courts of the United Arab Emirates have
+          jurisdiction over any dispute arising from them. If you are a consumer, this does
+          not deprive you of the protection of any mandatory consumer-protection laws of
+          the country where you live.
+        </p>
+
+        <h2 id="contact-terms">14. Contact</h2>
+        <p>
+          If you have any questions about these Terms, contact:
+        </p>
+        <p>
+          Email:
+          <a href="mailto:faizan.r.1350@gmail.com">faizan.r.1350@gmail.com</a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="border-t border-border">
+      <div
+        class="mx-auto flex max-w-3xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-7 w-7 rounded-lg" />
+          <span class="text-sm text-muted">
+            © <span id="year">2026</span> Locent. All rights reserved.
+          </span>
+        </div>
+        <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <a href="./index.html" class="text-muted transition-colors hover:text-foreground"
+            >Home</a
+          >
+          <a
+            href="./privacy.html"
+            class="text-muted transition-colors hover:text-foreground"
+            >Privacy Policy</a
+          >
+          <a href="./terms.html" class="text-muted transition-colors hover:text-foreground"
+            >Terms of Service</a
+          >
+          <a
+            href="mailto:faizan.r.1350@gmail.com"
+            class="text-muted transition-colors hover:text-foreground"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./assets/js/theme.js"></script>
+  </body>
+</html>

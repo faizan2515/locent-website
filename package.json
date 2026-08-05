@@ -1,0 +1,20 @@
+{
+  "name": "locent-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketing and legal site for Locent — homepage, privacy policy and terms required for Google OAuth verification.",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./assets/css/site.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./assets/css/site.css --watch",
+    "dist": "npm run build && node scripts/build-dist.mjs",
+    "verify": "node scripts/verify-site.mjs",
+    "serve": "npm run dist && npx --yes serve@14 dist"
+  },
+  "devDependencies": {
+    "@fontsource-variable/spline-sans": "^5.3.0",
+    "@tailwindcss/cli": "^4.1.0",
+    "playwright": "^1.62.1",
+    "tailwindcss": "^4.1.0"
+  }
+}

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Locent — a private, offline-first expense tracker</title>
+    <meta
+      name="description"
+      content="Locent is a fully local expense tracker for Android. Your data lives on your device; optional encrypted backups go to your own Google Drive. No accounts, no analytics, no server."
+    />
+    <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1b4fd0" />
+
+    <link rel="canonical" href="https://faizan2515.github.io/locent-website/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Locent" />
+    <meta property="og:url" content="https://faizan2515.github.io/locent-website/" />
+    <meta property="og:title" content="Locent — a private, offline-first expense tracker" />
+    <meta property="og:description" content="Your money stays on your device. Optional encrypted backups to your own Google Drive. No accounts, no analytics, no server." />
+    <meta property="og:image" content="https://faizan2515.github.io/locent-website/assets/img/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Self-hosted, so the page makes no third-party request. Preloaded
+         because the stylesheet that declares it is discovered a step later. -->
+    <link
+      rel="preload"
+      href="./assets/fonts/spline-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./assets/css/site.css" />
+
+    <!-- Resolve the theme before first paint so there is no light flash. -->
+    <script>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('locent-theme');
+        } catch (e) {
+          /* storage blocked — fall back to system */
+        }
+        var pref = stored === 'light' || stored === 'dark' ? stored : 'system';
+        var dark =
+          pref === 'dark' ||
+          (pref === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      })();
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+      >Skip to content</a
+    >
+
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md"
+    >
+      <div class="mx-auto flex h-16 max-w-5xl items-center gap-2 px-4 sm:gap-4 sm:px-5">
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-8 w-8 rounded-lg" />
+          <span class="text-lg font-semibold tracking-tight">Locent</span>
+        </a>
+
+        <nav class="ml-auto flex items-center gap-1 text-sm">
+          <a
+            href="./privacy.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Privacy</a
+          >
+          <a
+            href="./terms.html"
+            class="rounded-lg px-2 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:px-3"
+            >Terms</a
+          >
+          <a
+            href="mailto:faizan.r.1350@gmail.com"
+            class="hidden rounded-lg px-3 py-2 text-muted transition-colors hover:bg-surface hover:text-foreground sm:block"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Theme switch, mirroring the app's Settings > Appearance control. -->
+        <!-- Below sm the three-way control does not fit beside the nav links at
+             320px, so small screens get a single light/dark toggle instead. It
+             shows the theme it will switch to. -->
+        <button
+          type="button"
+          id="theme-toggle"
+          aria-label="Toggle light and dark theme"
+          class="shrink-0 rounded-lg bg-surface p-2 text-muted transition-colors sm:hidden"
+        >
+          <svg data-theme-icon="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg data-theme-icon="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <div
+          id="theme-switch"
+          role="group"
+          aria-label="Color theme"
+          class="hidden shrink-0 sm:flex items-center gap-0.5 rounded-lg bg-surface p-0.5"
+        >
+          <button
+            type="button"
+            data-theme-value="system"
+            aria-label="Match system theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8m-4-4v4" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="light"
+            aria-label="Light theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-theme-value="dark"
+            aria-label="Dark theme"
+            class="rounded-md p-1.5 text-muted transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section class="mx-auto max-w-5xl overflow-x-clip px-5 pb-16 pt-16 sm:pb-24 sm:pt-24">
+        <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <span
+              class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-income"></span>
+              Android · offline-first · no account required
+            </span>
+
+            <h1
+              class="mt-5 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl"
+            >
+              Your money stays
+              <span class="text-primary">on your device.</span>
+            </h1>
+
+            <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+              Locent is a personal expense tracker that keeps every transaction, budget
+              and goal in a local database on your phone. There is no Locent account and
+              no Locent server — because we never wanted your financial data in the first
+              place.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#backup"
+                class="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-on-primary transition-opacity hover:opacity-90"
+                >How backup works</a
+              >
+              <a
+                href="./privacy.html"
+                class="rounded-xl border border-border bg-surface px-5 py-3 text-sm font-semibold transition-colors hover:bg-surface-selected"
+                >Read the privacy policy</a
+              >
+            </div>
+
+            <p class="mt-5 text-sm text-muted">
+              Published by Faizan R. ·
+              <a
+                href="mailto:faizan.r.1350@gmail.com"
+                class="text-primary underline underline-offset-4"
+                >faizan.r.1350@gmail.com</a
+              >
+            </p>
+          </div>
+
+          <!-- App-styled preview, built from the same tokens the app uses. -->
+          <div class="relative mx-auto w-full max-w-[300px]">
+            <div
+              class="absolute -inset-8 -z-10 rounded-[3rem] opacity-20 blur-3xl"
+              style="background: linear-gradient(135deg, #2f6df6, #1b4fd0)"
+              aria-hidden="true"
+            ></div>
+
+            <div
+              class="overflow-hidden rounded-[2rem] border border-border bg-background p-4 shadow-2xl"
+            >
+              <div class="flex items-center justify-between px-1 pb-4 pt-1">
+                <div>
+                  <p class="text-xs text-muted">This month</p>
+                  <p class="text-2xl font-semibold tracking-tight">$1,284.50</p>
+                </div>
+                <img
+                  src="./assets/img/locent-mark.svg"
+                  alt=""
+                  class="h-9 w-9 rounded-lg"
+                />
+              </div>
+
+              <div class="overflow-hidden rounded-xl bg-surface">
+                <div class="flex items-center justify-between px-4 py-3.5">
+                  <div>
+                    <p class="text-sm font-medium">Groceries</p>
+                    <p class="text-xs text-muted">Cash · 12 Jul</p>
+                  </div>
+                  <p class="text-sm font-semibold text-expense">−$64.20</p>
+                </div>
+                <div class="h-px bg-border"></div>
+                <div class="flex items-center justify-between px-4 py-3.5">
+                  <div>
+                    <p class="text-sm font-medium">Salary</p>
+                    <p class="text-xs text-muted">Bank · 1 Jul</p>
+                  </div>
+                  <p class="text-sm font-semibold text-income">+$3,200.00</p>
+                </div>
+                <div class="h-px bg-border"></div>
+                <div class="flex items-center justify-between px-4 py-3.5">
+                  <div>
+                    <p class="text-sm font-medium">Rent</p>
+                    <p class="text-xs text-muted">Recurring · 1 Jul</p>
+                  </div>
+                  <p class="text-sm font-semibold text-expense">−$1,100.00</p>
+                </div>
+              </div>
+
+              <div class="mt-3 overflow-hidden rounded-xl bg-surface px-4 py-3.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-medium">Dining budget</span>
+                  <span class="text-muted">68%</span>
+                </div>
+                <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-selected">
+                  <div class="h-full w-[68%] rounded-full bg-primary"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Privacy invariants -->
+      <section class="border-y border-border bg-surface/40">
+        <div class="mx-auto max-w-5xl px-5 py-16 sm:py-20">
+          <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Private by design, not by promise
+          </h2>
+          <p class="mt-3 max-w-2xl text-muted">
+            These are architectural constraints in Locent, not policy preferences. The app
+            makes exactly three kinds of network call: signing in to your own Google
+            account, moving your own backups in and out of your own Drive, and checking
+            for app updates.
+          </p>
+
+          <div class="mt-10 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-xl border border-border bg-background p-5">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-primary"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="7" rx="2" />
+                  <rect x="2" y="13" width="20" height="7" rx="2" />
+                  <path d="m4 4 16 16" />
+                </svg>
+              </div>
+              <h3 class="mt-4 font-semibold">No server</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                There is no Locent backend to breach. Your records live in SQLite on your
+                phone and never reach infrastructure we control — none exists.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-border bg-background p-5">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-primary"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                  <path d="M6.61 6.61A13.5 13.5 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                  <path d="m2 2 20 20" />
+                </svg>
+              </div>
+              <h3 class="mt-4 font-semibold">No tracking</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                Zero analytics, telemetry, advertising or crash-reporting SDKs are bundled
+                into the app. Nobody is counting your taps, us included.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-border bg-background p-5">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-primary"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <h3 class="mt-4 font-semibold">Your storage, your key</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                Backups are encrypted on your device before upload and land in a hidden,
+                app-private folder in your own Google Drive.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="mx-auto max-w-5xl px-5 py-16 sm:py-20">
+        <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
+          Everything you need to track spending
+        </h2>
+        <p class="mt-3 max-w-2xl text-muted">
+          A complete personal ledger — not a stripped-down demo that upsells you into a
+          subscription.
+        </p>
+
+        <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Accounts &amp; transactions</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              Cash, bank, card and savings accounts with expenses, income and transfers.
+              Balances are computed from your opening balance and every record since.
+            </p>
+          </div>
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Recurring rules</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              Rent, salary and subscriptions post automatically — or ask first. Miss a few
+              days and the catch-up pass backfills them correctly when you return.
+            </p>
+          </div>
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Budgets &amp; goals</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              Budget periods anchored to any day of the month, with alerts at 80% and
+              100%, plus savings goals you contribute to over time.
+            </p>
+          </div>
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Local reminders</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              Bill reminders and a daily logging nudge, scheduled by Android on your
+              device. No push server sits between you and a notification.
+            </p>
+          </div>
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Reports &amp; CSV export</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              See where the month went, then export the raw transactions to CSV whenever
+              you want your data somewhere else. It is yours to take.
+            </p>
+          </div>
+          <div class="rounded-xl bg-surface p-5">
+            <h3 class="font-semibold">Biometric lock</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted">
+              Optionally require a fingerprint or face unlock to open the app, on top of
+              Android's own per-app storage sandbox.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Google Drive backup -->
+      <section id="backup" class="border-y border-border bg-surface/40">
+        <div class="mx-auto max-w-5xl px-5 py-16 sm:py-20">
+          <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
+            How Google Drive backup works
+          </h2>
+          <p class="mt-3 max-w-2xl text-muted">
+            Backup is optional and off until you turn it on. It is a
+            <strong class="font-semibold text-foreground">backup, not a sync</strong>: you
+            can restore onto a new phone and carry on, but running two devices at once is
+            unsupported — the most recent backup wins.
+          </p>
+
+          <ol class="mt-10 grid gap-4 sm:grid-cols-2">
+            <li class="rounded-xl border border-border bg-background p-5">
+              <span class="text-xs font-semibold uppercase tracking-wider text-primary"
+                >Step 1</span
+              >
+              <h3 class="mt-2 font-semibold">You sign in to your own Google account</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                Locent requests a single scope,
+                <code
+                  class="rounded-md bg-surface-selected px-1.5 py-0.5 font-mono text-xs text-foreground"
+                  >drive.appdata</code
+                >. That grants access to a hidden, app-specific folder in your Drive and
+                nothing else — none of your existing Drive files are visible to the app.
+              </p>
+            </li>
+            <li class="rounded-xl border border-border bg-background p-5">
+              <span class="text-xs font-semibold uppercase tracking-wider text-primary"
+                >Step 2</span
+              >
+              <h3 class="mt-2 font-semibold">Your data is encrypted on the device</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                The ledger is packaged and encrypted with AES-256 before anything leaves
+                your phone, using a key derived on-device. Only ciphertext travels.
+              </p>
+            </li>
+            <li class="rounded-xl border border-border bg-background p-5">
+              <span class="text-xs font-semibold uppercase tracking-wider text-primary"
+                >Step 3</span
+              >
+              <h3 class="mt-2 font-semibold">The encrypted file lands in your Drive</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                It is stored in your Google account, in the app-data folder no other app
+                can read. We never receive the file and could not decrypt it if we did.
+              </p>
+            </li>
+            <li class="rounded-xl border border-border bg-background p-5">
+              <span class="text-xs font-semibold uppercase tracking-wider text-primary"
+                >Step 4</span
+              >
+              <h3 class="mt-2 font-semibold">You restore, or you revoke</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">
+                Restoring downloads the file and decrypts it on the new device. You can
+                delete backups from inside the app, or cut access entirely from your
+                <a
+                  href="https://myaccount.google.com/permissions"
+                  class="text-primary underline underline-offset-4"
+                  rel="noopener"
+                  >Google account permissions</a
+                >.
+              </p>
+            </li>
+          </ol>
+
+          <p class="mt-8 rounded-xl border border-border bg-background p-5 text-sm leading-relaxed text-muted">
+            Locent's use of information received from Google APIs adheres to the
+            <a
+              href="https://developers.google.com/terms/api-services-user-data-policy"
+              class="text-primary underline underline-offset-4"
+              rel="noopener"
+              >Google API Services User Data Policy</a
+            >, including its Limited Use requirements.
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="mx-auto max-w-5xl px-5 py-16 sm:py-20">
+        <div
+          class="rounded-2xl border border-border bg-surface p-8 text-center sm:p-12"
+        >
+          <h2 class="text-2xl font-semibold tracking-tight">Questions about Locent?</h2>
+          <p class="mx-auto mt-3 max-w-lg text-muted">
+            Support, privacy questions and bug reports all go to the same inbox, and they
+            are read by the person who wrote the app.
+          </p>
+          <a
+            href="mailto:faizan.r.1350@gmail.com"
+            class="mt-7 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-on-primary transition-opacity hover:opacity-90"
+            >faizan.r.1350@gmail.com</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-border">
+      <div
+        class="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-center gap-2.5">
+          <img src="./assets/img/locent-mark.svg" alt="" class="h-7 w-7 rounded-lg" />
+          <span class="text-sm text-muted">
+            © <span id="year">2026</span> Locent. All rights reserved.
+          </span>
+        </div>
+        <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <a href="./index.html" class="text-muted transition-colors hover:text-foreground"
+            >Home</a
+          >
+          <a
+            href="./privacy.html"
+            class="text-muted transition-colors hover:text-foreground"
+            >Privacy Policy</a
+          >
+          <a href="./terms.html" class="text-muted transition-colors hover:text-foreground"
+            >Terms of Service</a
+          >
+          <a
+            href="mailto:faizan.r.1350@gmail.com"
+            class="text-muted transition-colors hover:text-foreground"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./assets/js/theme.js"></script>
+  </body>
+</html>
