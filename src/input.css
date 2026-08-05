@@ -53,7 +53,23 @@
   --color-border: #e2e4e9;
   --color-primary: #208aef; /* brand blue (splash color) */
   --color-on-primary: #ffffff;
-  --color-income: #12805c; /* green — income amounts */
+
+  /*
+   * Web-only. The app's brand blue is only 3.5:1 on white, which is fine for
+   * the large hero text and for icons (graphical objects need 3:1) but fails
+   * WCAG AA for body-sized text — and every link in the privacy policy and
+   * terms is body-sized. This is the app icon's gradient end and its splash
+   * background, so it is the same brand, just the end of it that survives on
+   * a light page: 6.8:1 on background, 6.0:1 on surface.
+   *
+   * Used for links, small accent text and filled buttons. `--color-primary`
+   * keeps the app's exact value so token parity is not lost.
+   */
+  --color-primary-strong: #1b4fd0;
+  /* The app's green is #12805c, which is 4.33:1 on `surface` — a hair under AA
+     for the amounts in the homepage mockup. Darkened by one step to clear it
+     (4.68:1) while staying the same green. Web-only; the app is unaffected. */
+  --color-income: #117a58; /* green — income amounts */
   --color-expense: #c62a2a; /* red — expense amounts */
   --color-danger: #c62a2a;
   --color-warning: #b45309;
@@ -80,6 +96,8 @@
   --color-border: #26292e;
   --color-primary: #3c9bff;
   --color-on-primary: #08111c;
+  /* Already 7.3:1 on the dark background, so it needs no strengthening. */
+  --color-primary-strong: #3c9bff;
   --color-income: #3ddc97;
   --color-expense: #ff6b6b;
   --color-danger: #ff6b6b;
@@ -168,7 +186,7 @@
   }
 
   .legal a {
-    color: var(--color-primary);
+    color: var(--color-primary-strong);
     text-decoration: underline;
     text-underline-offset: 3px;
   }

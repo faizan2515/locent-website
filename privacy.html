@@ -54,7 +54,7 @@
   <body class="bg-background text-foreground antialiased">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary-strong focus:px-4 focus:py-2 focus:text-on-primary"
       >Skip to content</a
     >
 
@@ -142,12 +142,12 @@
 
     <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-14">
       <h1 class="text-4xl font-bold tracking-tight">Privacy Policy</h1>
-      <p class="mt-4 text-sm text-muted">Last updated: 20 July 2026</p>
+      <p class="mt-4 text-sm text-muted">Last updated: 5 August 2026</p>
 
       <div class="legal mt-10">
         <p>
           Locent ("the app", "we", "us") is a personal expense tracker for Android,
-          published under the Name Locent. This policy explains what data the app handles
+          published under the name Locent. This policy explains what data the app handles
           and — just as importantly — what it does not do with your data.
         </p>
         <p>
@@ -279,12 +279,13 @@
 
         <h2 id="app-updates">6. App updates</h2>
         <p>
-          Locent checks for over-the-air (OTA) app updates using update service. This check
-          sends only technical build and runtime information (such as the app's version and
-          runtime identifier) needed to determine whether a compatible update is available.
-          It never includes any of your financial data or personal information. This is the
-          only automatic network request the app makes that is not a backup or sign-in
-          action you initiated.
+          Locent checks for over-the-air (OTA) app updates using Expo's update service
+          (EAS Update). This check sends only technical build and runtime information (such
+          as the app's version and runtime identifier, along with the network request's own
+          IP address) needed to determine whether a compatible update is available. It never
+          includes any of your financial data or personal information. This is the only
+          automatic network request the app makes that is not a backup or sign-in action you
+          initiated.
         </p>
 
         <h2 id="data-sharing">7. Data sharing</h2>
@@ -293,10 +294,16 @@
           place.
         </p>
         <p>
-          The only third party that ever holds your data is you, via your own Google
-          account, when you choose to enable backups. In that case the data lives in your
-          Google Drive under your control, and Google acts as your storage provider — not
-          ours.
+          The only third party that ever holds your financial data is you, via your own
+          Google account, when you choose to enable backups. In that case the data lives in
+          your Google Drive under your control, and Google acts as your storage provider —
+          not ours.
+        </p>
+        <p>
+          The one exception to "no third party" is the update check described in
+          <a href="#app-updates">Section 6</a>: it necessarily reaches Expo's servers, which
+          therefore see the request's IP address and the app's version. That is a technical
+          request about the app, not about you, and it carries none of your records.
         </p>
 
         <h2 id="retention">8. Data retention and deletion</h2>
