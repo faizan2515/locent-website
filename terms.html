@@ -198,15 +198,15 @@
             passcode or biometric lock;
           </li>
           <li>
-            safely storing your backup passphrase and recovery key (see
-            <a href="#backups">Section 3</a>).
+            keeping a copy of anything you cannot afford to lose — see
+            <a href="#backups">Section 3</a> for what backup does and does not promise.
           </li>
         </ul>
 
-        <h2 id="backups">3. Backups, restores and the passphrase</h2>
+        <h2 id="backups">3. Backups and restores</h2>
         <p>
-          The backup feature is optional and off until you enable it. Two things about it
-          are important enough that we state them plainly rather than burying them:
+          The backup feature is optional and off until you enable it. Three things about it
+          are worth stating plainly rather than burying:
         </p>
         <ul>
           <li>
@@ -215,11 +215,19 @@
             the most recent backup will overwrite the other on restore.
           </li>
           <li>
-            <strong>If you lose your passphrase, your backup is unrecoverable.</strong>
-            Backups are encrypted on your device with a key derived from your passphrase.
-            We do not hold that passphrase, there is no reset link, and no one — including
-            us — can decrypt your backup without it. The app offers a recovery key when you
-            set up backups; keep it somewhere safe.
+            <strong>There is no passphrase to set or lose.</strong> Backups are encrypted on
+            your device before upload, with a key the app derives itself. You are never asked
+            to invent or remember one, and there is nothing you can forget that would lock
+            you out of your own backup — a reinstall, or a brand-new phone, can restore from
+            your Drive without any secret you have to keep.
+          </li>
+          <li>
+            <strong>What that encryption is and is not for.</strong> It protects the backup
+            file in transit and at rest in your Drive, so a copy obtained on its own is not
+            readable as plain text. Because the key is derived by the app rather than from a
+            secret only you know, it is not designed to withstand someone who has both the
+            backup file and the ability to inspect the app. If you want protection stronger
+            than that, do not rely on the backup feature for it.
           </li>
         </ul>
         <p>
@@ -299,8 +307,8 @@
           liable for any indirect, incidental, special, consequential or exemplary damages,
           or for any loss of data, loss of profits, or loss of goodwill, arising out of or
           in connection with your use of — or inability to use — the app. This includes
-          data lost through device failure, uninstallation, a forgotten backup passphrase,
-          a failed or unavailable backup, or changes to third-party services.
+          data lost through device failure, uninstallation, a failed or unavailable backup,
+          a backup that could not be restored, or changes to third-party services.
         </p>
         <p>
           Because Locent is provided free of charge, our total aggregate liability to you
