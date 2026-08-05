@@ -204,20 +204,24 @@
               place.
             </p>
 
+            <!-- Full-width while stacked: at mobile widths the two buttons sit on
+                 separate rows, and intrinsic widths left them visibly ragged. -->
             <div class="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#backup"
-                class="rounded-xl bg-primary-strong px-5 py-3 text-sm font-semibold text-on-primary transition-opacity hover:opacity-90"
+                class="w-full rounded-xl bg-primary-strong px-5 py-3 text-center text-sm font-semibold text-on-primary transition-opacity hover:opacity-90 sm:w-auto"
                 >How backup works</a
               >
               <a
                 href="./privacy.html"
-                class="rounded-xl border border-border bg-surface px-5 py-3 text-sm font-semibold transition-colors hover:bg-surface-selected"
+                class="w-full rounded-xl border border-border bg-surface px-5 py-3 text-center text-sm font-semibold transition-colors hover:bg-surface-selected sm:w-auto"
                 >Read the privacy policy</a
               >
             </div>
 
-            <p class="mt-6 text-sm text-foreground">
+            <!-- Stacked buttons make a 12px vertical rhythm, so the 24px that reads
+                 as separation on desktop reads as part of the group on mobile. -->
+            <p class="mt-9 text-sm text-foreground sm:mt-6">
               <span class="font-semibold">US$5 on Google Play</span>
               <span class="text-muted">
                 — bought once, not a subscription. Local pricing may differ.</span
